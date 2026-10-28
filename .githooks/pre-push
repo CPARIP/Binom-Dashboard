@@ -1,0 +1,8 @@
+#!/bin/sh
+# Block uploads that would carry traces of the author's computer.
+# Enable once per clone: git config --local core.hooksPath .githooks
+if ! command -v node >/dev/null 2>&1; then
+  echo "Push blocked: Node.js is needed to check the commits before upload." >&2
+  exit 1
+fi
+exec node scripts/check-push.mjs --hook

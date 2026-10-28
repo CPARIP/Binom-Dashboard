@@ -1,0 +1,21 @@
+node_modules/
+dist/
+release/
+.test-results/
+.npm-cache/
+*.log
+.DS_Store
+demo/demo.bundle.js
+
+# Machine-specific notes and private diagnostics must not enter Git or releases.
+LOCAL_CONTEXT.md
+.local/
+.env
+.env.*
+!.env.example
+binom-openapi*.json
+*.har
+*.pem
+*.key
+browser-profiles/
+playwright-report/

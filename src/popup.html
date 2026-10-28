@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binom Dashboard</title>
+  <link rel="stylesheet" href="select.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header><img src="icons/48.png" width="32" height="32" alt=""><div><h1>Binom Dashboard</h1><p id="connection-state" class="status" data-state="none">Loading…</p></div></header>
+    <section aria-labelledby="language-label">
+      <label id="language-label" for="language">Language</label>
+      <select id="language" aria-label="Language"><option value="en" lang="en">English</option><option value="ru" lang="ru">Русский</option></select>
+      <!-- The Binom design is the only design; there is no design choice. -->
+      <p id="theme-hint" class="hint">Switch between light and dark themes in Binom.</p>
+    </section>
+    <!-- The dashboard is switched on and off with a switch. -->
+    <section id="dashboard-control" class="dashboard-control" aria-label="Dashboard controls">
+      <div class="state-row">
+        <span id="dashboard-label">Dashboard</span>
+        <span class="switch-row"><span id="dashboard-state">—</span><button id="toggle-dashboard" class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="dashboard-label" disabled><span class="switch-knob" aria-hidden="true"></span></button></span>
+      </div>
+      <p id="connection-hint" class="hint">Your connection and settings are kept.</p>
+    </section>
+    <p id="feedback" role="status" aria-live="polite"></p>
+    <button id="open-settings" class="settings" type="button"><span id="settings-label">Connection settings</span><span aria-hidden="true">↗</span></button>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

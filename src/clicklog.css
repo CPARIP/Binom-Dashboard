@@ -1,0 +1,56 @@
+.clicklog-root { margin-top: 20px; min-width: 0; }
+.clicklog-panel { background: var(--bg); border: 1px solid var(--line); border-radius: 13px; padding: 20px; min-width: 0; }
+.clicklog-head { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 12px; }
+.clicklog-head h3 { margin: 0 0 4px; color: var(--text); font-size: 16px; font-weight: 650; letter-spacing: -.25px; }
+.clicklog-order, .clicklog-scope { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.clicklog-scope { margin-top: 10px; }
+.clicklog-controls { display: flex; gap: 10px; align-items: center; }
+.clicklog-columns { position: relative; z-index: 2; }
+.clicklog-columns summary { cursor: pointer; color: var(--blue); font-size: 12px; padding: 8px 0; }
+.clicklog-column-options { position: absolute; top: 100%; right: 0; width: 220px; max-width: calc(100vw - 48px); display: grid; gap: 4px; padding: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px #0002; }
+.clicklog-column-options .check { padding: 4px; min-height: 26px; border: 0; background: transparent; }
+.clicklog-feedback { margin: 8px 0; color: var(--muted); font-size: 11px; }
+.clicklog-feedback:empty { display: none; }
+.clicklog-content { margin-top: 14px; min-width: 0; }
+.clicklog-table-wrap { overflow: auto; max-height: 560px; }
+.clicklog-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; font-variant-numeric: tabular-nums; }
+.clicklog-table th { position: sticky; top: 0; z-index: 1; background: var(--surface); color: var(--muted); font-size: 11px; font-weight: 500; text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.clicklog-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); color: var(--text); white-space: nowrap; vertical-align: top; }
+.clicklog-table td[data-column=user_agent] { min-width: 260px; max-width: 480px; white-space: normal; overflow-wrap: anywhere; }
+.clicklog-table td[data-column=campaign] { min-width: 140px; max-width: 280px; white-space: normal; overflow-wrap: anywhere; }
+.clicklog-table tbody tr:hover { background: var(--hover); }
+.clicklog-value-icon { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 24px; vertical-align: middle; font-size: 22px; line-height: 1; border-radius: 4px; cursor: help; }
+.clicklog-value-icon svg { display: block; width: 20px; height: 20px; }
+.clicklog-value-icon:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.clicklog-tooltip { position: fixed; inset: auto; margin: 0; padding: 7px 10px; max-width: min(320px, calc(100vw - 16px)); box-sizing: border-box; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); color: var(--text); box-shadow: 0 4px 14px #0003; font-family: inherit; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; pointer-events: none; z-index: 100; }
+.clicklog-tooltip[hidden] { display: none; }
+.clicklog-state { margin: 0; min-height: 88px; padding: 25px 0; color: var(--muted); font-size: 12px; }
+.clicklog-error { color: var(--negative, #da7f78); }
+.light .clicklog-error { color: var(--negative, #a64a43); }
+.clicklog-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; color: var(--muted); font-size: 11px; }
+.clicklog-footer label, .clicklog-pagination { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.clicklog-footer select { min-width: 68px; max-width: 90px; font-size: 12px; }
+.clicklog-position { min-width: 115px; text-align: center; }
+/* One bordered panel. The heading block and the scope
+   caption share the left column; the controls stay at the right. */
+.binom .clicklog-root { margin-top: var(--block-gap, 12px); }
+.binom .clicklog-panel { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; padding: 10px 14px 10px; border: 1px solid var(--line); border-radius: var(--panel-radius, 4px); background: var(--bg); }
+.binom .clicklog-head { display: contents; }
+.binom .clicklog-head > div:first-child { grid-column: 1; grid-row: 1; min-width: 0; }
+.binom .clicklog-controls { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.binom .clicklog-scope { grid-column: 1; grid-row: 2; margin-top: 2px; }
+.binom .clicklog-feedback, .binom .clicklog-content, .binom .clicklog-footer { grid-column: 1 / -1; min-width: 0; }
+.binom .clicklog-head h3 { margin: 0 0 2px; font-weight: 600; font-size: 14px; letter-spacing: 0; color: var(--heading); }
+.binom .clicklog-content { margin-top: 8px; }
+.binom .clicklog-column-options { border-radius: 4px; border-color: var(--field-line); }
+.binom .clicklog-table-wrap { max-height: 520px; border: 1px solid var(--line); border-radius: 3px; }
+.binom .clicklog-table th { font-weight: 400; background: var(--surface); padding: 6px 8px; }
+.binom .clicklog-table td { height: 26px; padding: 4px 8px; vertical-align: middle; }
+.binom .clicklog-value-icon { width: 22px; height: 18px; font-size: 16px; }
+.binom .clicklog-value-icon svg { width: 16px; height: 16px; }
+.binom .clicklog-table tbody tr:last-child td { border-bottom: 0; }
+.binom .clicklog-footer { margin-top: 10px; }
+.binom .clicklog-table tbody tr:nth-child(odd) { background: var(--stripe); }
+.binom .clicklog-table tbody tr:hover { background: var(--hover); }
+.binom .clicklog-footer select { height: 30px; border: 1px solid var(--field-line); border-radius: 4px; color: var(--field-text); background: var(--field); }
+@media (max-width: 560px) { .clicklog-panel { padding: 14px; } .clicklog-footer { align-items: start; } .clicklog-pagination { width: 100%; justify-content: space-between; } .clicklog-column-options { right: auto; left: 0; } }

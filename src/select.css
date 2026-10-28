@@ -1,0 +1,28 @@
+/* Genuine styled menus; the native element only backs values and change events. */
+.custom-select { display: inline-flex; position: relative; min-width: 0; max-width: 100%; vertical-align: middle; }
+.select-native { position: absolute !important; width: 1px !important; height: 1px !important; min-width: 0 !important; max-width: 1px !important; padding: 0 !important; margin: 0 !important; border: 0 !important; opacity: 0 !important; pointer-events: none !important; overflow: hidden !important; clip-path: inset(50%) !important; }
+.select-trigger { display: inline-flex; align-items: center; justify-content: flex-start; position: relative; min-height: 36px; min-width: 136px; max-width: 240px; width: 100%; padding: 0 42px 0 13px; gap: 0; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--text); font: inherit; font-size: 12px; text-align: left; cursor: pointer; transition: border-color .15s, box-shadow .15s, background .15s; }
+.select-trigger:hover { border-color: color-mix(in srgb, var(--blue) 48%, var(--line)); background: var(--hover); }
+.select-trigger[aria-expanded=true] { border-color: var(--blue); background: var(--bg); box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 13%, transparent); }
+.select-trigger:disabled { cursor: not-allowed; opacity: .5; }
+.select-trigger:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.select-value { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.select-chevron { position: absolute; right: 13px; top: 50%; display: block; width: 16px; height: 16px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.select-chevron svg { display: block; width: 16px; height: 16px; min-width: 16px; max-width: none; flex: none; transition: transform .15s; }
+.select-trigger[aria-expanded=true] .select-chevron svg { transform: rotate(180deg); color: var(--blue); }
+.select-menu { position: fixed; inset: auto; z-index: 2147483646; margin: 0; padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); box-shadow: 0 12px 36px #081b3033, 0 2px 7px #081b3012; overflow: auto; overscroll-behavior: contain; max-height: 328px; min-width: 0; box-sizing: border-box; font: inherit; font-size: 12px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; outline: none; }
+.select-menu::backdrop { background: transparent; }
+.select-option { display: flex; align-items: center; justify-content: space-between; gap: 14px; position: relative; min-height: 38px; padding: 9px 11px; border-radius: 7px; color: var(--text); cursor: pointer; line-height: 1.45; user-select: none; }
+.select-option + .select-option { margin-top: 2px; }
+.select-option-label { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.select-option.is-active { background: var(--hover); }
+.select-option[aria-selected=true] { color: var(--blue); background: var(--brand-tint, color-mix(in srgb, var(--blue) 13%, var(--bg))); font-weight: 600; }
+.select-option[aria-selected=true].is-active { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--blue) 22%, transparent); }
+.select-option[aria-disabled=true] { cursor: not-allowed; color: var(--muted); opacity: .45; background: transparent; box-shadow: none; }
+.select-check { visibility: hidden; display: block; width: 15px; height: 15px; flex: 0 0 15px; }
+.select-check svg { display: block; width: 15px; height: 15px; max-width: none; }
+.select-option[aria-selected=true] .select-check { visibility: visible; }
+.campaign-metric-label .select-trigger { min-width: 140px; }
+.footer .select-trigger { min-width: 124px; min-height: 30px; max-width: 180px; font-size: 10px; border-radius: 7px; padding-left: 10px; background: var(--bg); }
+@media(max-width:720px) { .select-trigger { min-width: 124px; max-width: 210px; font-size: 11px; } }
+@media(prefers-reduced-motion:reduce) { .select-trigger, .select-chevron svg { transition: none; } }

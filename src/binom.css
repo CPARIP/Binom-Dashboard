@@ -1,0 +1,327 @@
+/* Native Binom presentation, scoped to the Dashboard shadow tree.
+   Inherit the tracker's semantic tokens when available; fallbacks also support
+   standalone previews. Compact controls, tab rules and table rows follow the
+   public frontend evidence represented in tests/extension.mjs.
+   Compact panels and one clean metric palette per theme. */
+.bd.binom {
+  --bg: var(--color-simple-bg, #222731);
+  --surface: var(--color-simple-light-bg, #292f3a);
+  --hover: var(--color-simple-row-hover, #303744);
+  --line: var(--color-simple-border, #454b54);
+  --text: var(--color-row-text, #c4cad1);
+  --heading: var(--color-simple-title, #eeeeee);
+  --muted: var(--color-gray-text, #929eaf);
+  --blue: var(--color-header-navigation-tabs-item-active, #00a1e0);
+  --field: var(--color-field-background-normal, #393e4e);
+  --field-line: var(--color-field-border-normal, #535967);
+  --field-text: var(--color-field-text-normal, #c4cbd4);
+  --stroke: var(--color-button-secondary-stroke-border, #68727f);
+  --stripe: var(--color-row-background-odd, #252b35);
+  --positive: var(--color-row-text-positive, #b6dd7b);
+  --negative: var(--color-row-text-negative, #f88989);
+  --warning: var(--color-palette-warning, #e5bd68);
+  --primary: var(--color-button-primary-blue-background, #009bda);
+  --primary-text: var(--color-button-primary-blue-text, #ffffff);
+  --brand-tint: color-mix(in srgb, var(--blue) 13%, var(--bg));
+  --chart-grid: var(--color-row-border, #454b54);
+  --panel-radius: 4px;
+  --block-gap: 12px;
+  /* One categorical set, checked with the data-viz validator against the dark
+     surface: adjacent and default-four CVD separation >= 7.6, normal >= 15. */
+  --metric-clicks: #2490dd;
+  --metric-leads: #b99cff;
+  --metric-costs: #f0565c;
+  --metric-revenue: #f7a83a;
+  --metric-profit: #24a955;
+  --metric-roi: #e85aa8;
+  --metric-cr: #2ec4b6;
+  --metric-epc: #7d8cff;
+  --metric-cpc: #f2c94c;
+  --metric-bots: #94a3b8;
+  --campaign-1: var(--metric-clicks);
+  --campaign-2: var(--metric-revenue);
+  --campaign-3: var(--metric-profit);
+  --campaign-4: var(--metric-leads);
+  --campaign-5: var(--metric-costs);
+  --campaign-6: var(--metric-cr);
+  --campaign-7: var(--metric-cpc);
+  --campaign-8: var(--metric-roi);
+  --campaign-9: var(--metric-epc);
+  --campaign-10: #9ccc3a;
+  margin: 14px 20px 18px;
+  background: var(--bg);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  color-scheme: dark;
+  font-family: var(--primary-font-family, Arial, sans-serif);
+  font-size: 13px;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+.bd.binom.light {
+  --bg: var(--color-simple-bg, #ffffff);
+  --surface: var(--color-simple-light-bg, #f5f7fa);
+  --hover: var(--color-simple-row-hover, #edf4f9);
+  --line: var(--color-simple-border, #d7dde5);
+  --text: var(--color-row-text, #354252);
+  --heading: var(--color-simple-title, #20242d);
+  --muted: var(--color-gray-text, #667385);
+  --field: var(--color-field-background-normal, #ffffff);
+  --field-line: var(--color-field-border-normal, #bdc5cf);
+  --field-text: var(--color-field-text-normal, #354252);
+  --stroke: var(--color-button-secondary-stroke-border, #a8b2bf);
+  --stripe: var(--color-row-background-odd, #f5f7fa);
+  --positive: var(--color-row-text-positive, #4b8619);
+  --negative: var(--color-row-text-negative, #d44343);
+  --warning: var(--color-palette-warning, #986814);
+  --chart-grid: var(--color-row-border, #d7dde5);
+  /* The same hues stepped for a white surface; no brown or olive steps. */
+  --metric-clicks: #1899ec;
+  --metric-leads: #8851eb;
+  --metric-costs: #df202e;
+  --metric-revenue: #e58212;
+  --metric-profit: #178529;
+  --metric-roi: #d0268c;
+  --metric-cr: #0a9d93;
+  --metric-epc: #4c5fd7;
+  --metric-cpc: #d9a400;
+  --metric-bots: #6b7a90;
+  --campaign-10: #6a9e00;
+  color-scheme: light;
+}
+
+.binom .head { padding: 0 0 10px; gap: 12px; }
+.binom .heading { gap: 10px; }
+.binom .heading-dot { display: none; }
+.binom h2 { color: var(--heading); font-size: 18px; font-weight: 600; letter-spacing: 0; }
+.binom .badge { border: 1px solid var(--line); color: var(--muted); background: var(--surface); border-radius: 3px; font-size: 9px; font-weight: 400; letter-spacing: .25px; }
+.binom .actions { gap: 8px; }
+.binom .body { padding: 0; }
+.binom .refresh, .binom .setting-action, .binom .icon-btn {
+  height: 32px; min-width: 32px; padding: 0 12px; border-radius: 4px;
+  background: transparent; border: 1px solid var(--stroke); color: var(--text); font-size: 12px; font-weight: 400;
+}
+.bd.binom .head .actions .icon-btn { width: 32px; min-width: 32px; max-width: 32px; height: 32px; min-height: 32px; flex-basis: 32px; padding: 0; }
+.bd.binom .head .actions .icon-btn > svg { width: 16px; min-width: 16px; max-width: 16px; height: 16px; min-height: 16px; max-height: 16px; flex-basis: 16px; }
+.binom .refresh { padding: 0 14px; background: var(--primary); border-color: var(--primary); color: var(--primary-text); }
+.binom .refresh:hover { background: var(--color-button-primary-blue-background-hover, #008ac3); border-color: var(--color-button-primary-blue-background-hover, #008ac3); }
+.binom .setting-action:hover, .binom .icon-btn:hover { background: var(--hover); border-color: var(--blue); }
+.binom button:focus-visible, .binom input:focus-visible, .binom summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* Filters: tabs on their own rule, then fields, flags, time zone and the
+   metric link share one wrapping row. */
+.binom .filter-area { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 0 0 var(--block-gap); margin: 0; border: 0; border-radius: 0; background: transparent; }
+.binom .filter-area > * { min-width: 0; }
+.binom .filter-area > p { flex: 1 0 100%; margin: 0; }
+.binom .mode-toolbar { flex: 1 0 100%; gap: 18px; margin: 0 0 2px; border-bottom: 1px solid var(--line); }
+.binom .mode-switch { padding: 0; gap: 22px; border: 0; border-radius: 0; background: transparent; }
+.binom .mode-switch button { position: relative; min-height: 32px; padding: 0 0 7px; border-radius: 0; background: transparent; font-size: 13px; color: var(--muted); font-weight: 400; }
+.binom .mode-switch button[aria-pressed=true] { color: var(--blue); background: transparent; box-shadow: inset 0 -2px var(--blue); }
+.binom .mode-switch button:hover { color: var(--blue); }
+.binom .mode-description { font-size: 11px; margin-bottom: 6px; }
+.binom .toolbar { flex: 0 1 auto; gap: 8px; margin: 0; }
+.binom .toolbar.secondary { flex: 1 1 auto; gap: 6px 16px; margin: 0; }
+.binom .check { font-size: 12px; color: var(--text); padding: 0; min-height: 24px; background: transparent; border: 0; border-radius: 0; }
+.binom input[type=checkbox] { accent-color: var(--primary); width: 14px; height: 14px; }
+.binom .toolbar .timezone { font-size: 11px; margin-left: 2px; }
+.binom input[type=date], .binom .campaign-search, .binom .selection-name, .binom .threshold-form input {
+  height: 32px; padding: 0 10px; border: 1px solid var(--field-line); border-radius: 4px; background: var(--field); color: var(--field-text); font-size: 12px;
+}
+.binom .reset-filters { width: 32px; height: 32px; min-width: 32px; flex-basis: 32px; }
+.binom .campaign-search::placeholder, .binom .selection-name::placeholder { color: var(--muted); }
+
+/* The metric choice is a link at the end of the filter row (moved there by
+   dashboard.js for this design) and opens as a popover over the cards. */
+.binom .toolbar.secondary .metric-settings { position: relative; margin: 0 0 0 auto; color: var(--blue); font-size: 12px; }
+.binom .toolbar.secondary .metric-settings summary { padding: 3px 0; }
+.binom .toolbar.secondary .metric-settings summary:hover { text-decoration: underline; }
+.binom .toolbar.secondary .metric-options { position: absolute; top: calc(100% + 4px); right: 0; z-index: 5; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 340px; max-width: calc(100vw - 40px); gap: 4px 16px; padding: 10px 12px; border: 1px solid var(--field-line); border-radius: var(--panel-radius); background: var(--bg); box-shadow: 0 4px 14px #0003; }
+.bd.binom .metric-settings:not([open]) .metric-options { display: none; }
+.binom .metric-settings { margin: 0 0 8px; font-size: 12px; }
+
+.binom .saved-area { border-top: 0; padding: 10px 0 0; margin: 0; }
+.binom .saved-heading { margin-bottom: 5px; font-size: 11px; font-weight: 400; }
+.binom .text-action { color: var(--blue); font-size: 11px; font-weight: 400; }
+.binom .saved-chip { background: var(--surface); border: 1px solid var(--line); border-radius: 3px; }
+.binom .saved-chip .text-action { color: var(--text); }
+.binom .saved-remove { border-left: 1px solid var(--line); }
+.binom .saved-empty, .binom .selection-message { font-size: 11px; }
+.binom .selection-message { color: var(--warning); }
+.binom .campaign-controls { margin: 12px 0 0; gap: 12px; }
+.binom .campaign-hint { margin-left: auto; }
+.binom .campaign-popover { padding: 12px; border: 1px solid var(--field-line); border-radius: 4px; background: var(--bg); box-shadow: 0 4px 14px #0003; }
+.binom .picker-heading strong { color: var(--heading); font-size: 13px; font-weight: 600; }
+.binom .campaign-option { min-height: 30px; border-radius: 0; padding: 5px 6px; font-size: 12px; }
+.binom .campaign-option:hover { background: var(--hover); }
+.binom .picker-footer { padding-top: 10px; }
+.binom .campaign-legend { gap: 6px; margin: 0 0 10px; }
+.binom .campaign-chip { border-radius: 3px; background: transparent; }
+.binom .campaign-toggle { padding: 6px 9px; }
+.binom .campaign-name, .binom .campaign-total { font-size: 12px; font-weight: 400; }
+.binom .campaign-total { color: var(--heading); font-weight: 600; }
+.binom .campaign-dot { border-radius: 2px; width: 8px; height: 8px; }
+.binom .campaign-error .campaign-total { color: var(--negative); }
+
+/* Totals: separate compact tiles. Every tile shows its metric color; tiles
+   that are off the chart keep a pale stripe. */
+.binom .cards { gap: 8px; margin: 0 0 var(--block-gap); border: 0; border-radius: 0; background: transparent; }
+/* Pure accent colors only: translucent accents over grey turn brown or
+   plum, so off-chart tiles get a thin line and a hollow marker instead. */
+.binom .card { min-height: 0; gap: 2px; padding: 10px 12px 8px; border: 1px solid var(--line); border-radius: var(--panel-radius); background: var(--surface); }
+.binom .card::before { inset: 0 0 auto; height: 1px; opacity: 1; }
+.binom .card[aria-pressed=true] { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.binom.light .card[aria-pressed=true] { background: color-mix(in srgb, var(--accent) 6%, var(--bg)); }
+.binom.light .card[aria-pressed=true]:hover { background: color-mix(in srgb, var(--accent) 8%, var(--bg)); }
+.binom .card[aria-pressed=true]::before { height: 3px; }
+.binom .card:hover { background: var(--hover); border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
+.binom .card-label { font-size: 12px; color: var(--muted); font-weight: 400; }
+.binom .metric-dot { border-radius: 2px; width: 8px; height: 8px; opacity: 1; background: transparent; box-shadow: inset 0 0 0 1.5px var(--accent); }
+.binom .card[aria-pressed=true] .metric-dot { background: var(--accent); box-shadow: none; }
+.binom .card-value { color: var(--heading); font-size: clamp(17px, 1.6vw, 22px); line-height: 1.25; font-weight: 600; letter-spacing: -.2px; }
+.binom .card-change { min-height: 14px; font-size: 10px; color: var(--muted); }
+.binom .positive, .binom .card-change.positive { color: var(--positive); }
+.binom .negative, .binom .card-change.negative, .binom .insight-error { color: var(--negative); }
+.binom .signal, .binom .insight-warnings { color: var(--warning); }
+
+/* Chart, composition and recent clicks are bordered panels with the
+   heading inside. */
+.binom .chart-panel { padding: 10px 14px 4px; border: 1px solid var(--line); border-radius: var(--panel-radius); background: var(--bg); }
+.binom .chart-head { margin: 0 0 4px; gap: 10px; }
+.binom .chart-title { font-size: 14px; font-weight: 600; color: var(--heading); }
+.binom .chart-period { font-size: 11px; }
+.binom .chart-wrap, .binom .chart { min-height: 280px; height: 280px; }
+.binom .state { border-radius: 0; padding: 24px; }
+.binom .state-title { color: var(--heading); font-size: 14px; font-weight: 600; }
+.binom .notice { margin: 8px 0 10px; border: 1px solid color-mix(in srgb, var(--warning) 45%, var(--line)); border-radius: 3px; background: color-mix(in srgb, var(--warning) 7%, var(--bg)); color: var(--warning); }
+.binom .collapsed-summary { padding: 4px 0 12px; }
+.binom .footer { margin: var(--block-gap) 0 0; padding-top: 8px; font-size: 10px; }
+.binom .footer-left { gap: 14px; }
+.binom .privacy { color: var(--muted); }
+
+/* Native fields and lists remain compact, including top-layer popovers. */
+.binom .select-trigger { min-height: 32px; border-radius: 4px; background: var(--field); border-color: var(--field-line); color: var(--field-text); font-size: 12px; font-weight: 400; }
+.binom .select-trigger:hover { border-color: var(--stroke); background: var(--field); }
+.binom .select-trigger[aria-expanded=true] { background: var(--field); border-color: var(--blue); box-shadow: none; }
+.binom .select-chevron { color: var(--field-text); }
+.binom .select-menu { padding: 4px 0; border-radius: 4px; background: var(--bg); border-color: var(--field-line); box-shadow: 0 4px 14px #0003; font-size: 12px; }
+.binom .select-option { min-height: 30px; padding: 6px 12px; border-radius: 0; line-height: 1.4; }
+.binom .select-option + .select-option { margin-top: 0; }
+.binom .select-option[aria-selected=true] { font-weight: 400; }
+.binom .select-option[aria-selected=true].is-active { box-shadow: none; }
+.binom .footer .select-trigger { min-height: 26px; font-size: 10px; background: transparent; }
+
+/* Traffic composition: one panel. dashboard.js moves the scope caption into
+   the panel heading for this design. */
+.binom .insights-root { margin-top: var(--block-gap); }
+.binom .insight-card-head .insight-scope { margin: 3px 0 0; font-size: 11px; overflow-wrap: anywhere; }
+.binom .insights-heading { gap: 12px; margin-bottom: 14px; }
+.binom .insights-heading h3 { color: var(--heading); font-size: 16px; letter-spacing: 0; font-weight: 600; margin-bottom: 4px; }
+.binom .insight-settings summary, .binom .threshold-settings summary { font-size: 11px; }
+.binom .insight-toggles { padding: 12px; gap: 5px; border-radius: 4px; border-color: var(--field-line); box-shadow: 0 4px 14px #0003; }
+.binom .insights-grid { gap: var(--block-gap); }
+.binom .insight-card { padding: 10px 14px 12px; border: 1px solid var(--line); border-radius: var(--panel-radius); background: var(--bg); }
+.binom .insight-card-head { margin-bottom: 8px; padding: 0; border: 0; background: transparent; }
+.binom .insight-card h3 { margin: 0 0 2px; font-size: 14px; font-weight: 600; letter-spacing: 0; color: var(--heading); }
+.binom .insight-card h4 { font-size: 12px; font-weight: 600; color: var(--heading); margin: 5px 0 8px; }
+.binom .insight-card-head p { font-size: 11px; }
+.binom .insight-empty { padding: 10px 0; }
+.binom .insight-note { margin-top: 10px; }
+.binom .leader-columns { gap: 20px; }
+.binom .leader-row { padding: 7px 0; gap: 3px 10px; }
+.binom .leader-row > span { font-weight: 400; }
+.binom .leader-row .sparkline { height: 16px; }
+.binom .attention-row { padding: 8px 0; }
+.binom .attention-row strong { font-weight: 400; }
+.binom .threshold-form { padding: 10px; border-radius: 3px; background: var(--surface); }
+.binom .threshold-form input { height: 30px; }
+.binom .pace-stats { gap: 20px; }
+.binom .pace-stats > div { padding-top: 7px; border-top-width: 2px; }
+.binom .pace-stats > div:first-child, .binom .pace-detail-values > div:first-child { --pace-color: var(--metric-clicks) !important; }
+.binom .pace-stats > div:last-child, .binom .pace-detail-values > div:last-child { --pace-color: var(--metric-leads) !important; }
+.binom .pace-line[data-series=today] { stroke: var(--metric-clicks); }
+.binom .pace-point[data-series=today] { fill: var(--metric-clicks); }
+.binom .pace-line[data-series=yesterday] { stroke: var(--metric-leads); }
+.binom .pace-point[data-series=yesterday] { fill: var(--metric-leads); }
+.binom .pace-stats strong { font-size: 23px; font-weight: 400; letter-spacing: 0; color: var(--heading); }
+.binom .pace-outcome { font-size: 18px; font-weight: 400; letter-spacing: 0; }
+.binom .pace-detail { border-radius: 3px; padding: 10px; }
+.binom .pace-detail-title, .binom .pace-detail-values b { font-weight: 400; }
+.binom .heatmap-grid { gap: 3px; }
+.binom .heatmap-cell { height: 18px; border-radius: 0; }
+.binom .heatmap-detail { min-height: 38px; padding: 8px 10px; border-radius: 3px; }
+.binom .heatmap-detail b { font-weight: 400; }
+.binom .breakdown-tabs { gap: 16px; margin-bottom: 12px; border-bottom: 1px solid var(--line); padding: 0; }
+.binom .breakdown-tabs button { min-width: 0; height: 27px; padding: 0 0 6px; border: 0; border-radius: 0; background: transparent; font-size: 12px; }
+.binom .breakdown-tabs button[aria-pressed=true] { box-shadow: inset 0 -2px var(--blue); background: transparent; }
+/* Ring and ranked list: the list flows down up to two columns of at least
+   260 px, top-aligned with the ring. */
+.binom .breakdown-distribution { grid-template-columns: 176px minmax(0, 1fr); gap: 28px; align-items: start; }
+.binom .breakdown-ring { width: min(100%, 168px); }
+.binom .breakdown-total strong { font-size: 22px; }
+.binom .breakdown-figure figcaption { margin-top: 2px; }
+.binom .breakdown-list { display: block; columns: 2 260px; column-gap: 36px; }
+.binom .breakdown-row { break-inside: avoid; padding: 0 0 10px; }
+.binom .breakdown-label { gap: 2px 10px; font-size: 12px; }
+.binom .breakdown-label b { color: var(--heading); font-weight: 600; }
+.binom .breakdown-label small { font-size: 11px; }
+.binom .breakdown-name::before { border-radius: 2px; }
+.binom .breakdown-bar { height: 5px; margin-top: 5px; border-radius: 2px; }
+.binom .breakdown-bar i { border-radius: 2px; opacity: 1; }
+.binom .efficiency-cards { gap: 0; margin-bottom: 16px; border: 1px solid var(--line); }
+.binom .efficiency-cards > div { border: 0; border-right: 1px solid var(--line); border-radius: 0; padding: 9px 10px; }
+.binom .efficiency-cards > div:last-child { border-right: 0; }
+.binom .efficiency-cards strong { font-size: 18px; font-weight: 400; color: var(--heading); letter-spacing: 0; }
+
+@media (max-width: 1120px) {
+  .binom .card { padding: 9px 10px 7px; }
+  .binom .efficiency-cards > div:nth-child(2) { border-right: 0; }
+  .binom .efficiency-cards > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 900px) {
+  .bd.binom { margin: 14px 16px 16px; }
+  .binom .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .binom .insights-grid { gap: 18px; }
+  .binom .footer { flex-wrap: wrap; }
+}
+@media (max-width: 720px) {
+  /* The ring stays beside the list until 560 px. */
+  .binom .breakdown-distribution { grid-template-columns: 140px minmax(0, 1fr); gap: 20px; }
+  .binom .breakdown-ring { width: 140px; }
+  .binom .breakdown-total strong { font-size: 18px; }
+  /* On narrow screens the metric list spans the flag row; the link stays put. */
+  .binom .toolbar.secondary { position: relative; }
+  .binom .toolbar.secondary .metric-settings { position: static; margin-left: 0; }
+  .binom .toolbar.secondary .metric-options { left: 0; right: 0; width: auto; max-width: none; }
+}
+@media (max-width: 560px) {
+  .bd.binom { margin: 12px; }
+  .binom .head { align-items: flex-start; gap: 8px; }
+  .binom h2 { font-size: 16px; }
+  .binom .heading { gap: 5px; }
+  .binom .actions { gap: 5px; }
+  .binom .head .refresh { padding: 0 8px; min-width: 32px; }
+  .binom .mode-switch { gap: 18px; }
+  .binom .mode-switch button { font-size: 12px; }
+  .binom .toolbar.secondary { gap: 6px 14px; }
+  .binom .check { font-size: 11px; white-space: normal; }
+  .binom .toolbar .timezone { margin-left: 0; }
+  .binom .card { padding: 8px 8px 7px; }
+  .binom .card-label { font-size: 11px; }
+  .binom .card-change { font-size: 9px; }
+  .binom .select-trigger { min-width: 124px; max-width: 210px; font-size: 11px; }
+  .binom .campaign-popover { max-width: calc(100vw - 32px); }
+  .binom .campaign-hint { margin-left: 0; }
+  .binom .chart-panel { padding: 10px 10px 4px; }
+  .binom .chart-wrap, .binom .chart { min-height: 260px; height: 260px; }
+  .binom .insight-card { padding: 10px 10px 12px; }
+  .binom .leader-columns { gap: 12px; }
+  .binom .breakdown-tabs { gap: 14px; }
+  .binom .breakdown-distribution { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .binom .breakdown-ring { width: 160px; }
+}
+@media (max-width: 480px) {
+  /* Money totals stay whole: two tiles per row. */
+  .binom .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

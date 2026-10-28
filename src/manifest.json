@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Binom Dashboard",
+  "version": "0.6.13",
+  "minimum_chrome_version": "114",
+  "description": "Дашборд в меню Binom v2: обзор и сравнение кампаний в стиле Binom. Данные напрямую из трекера.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "optional_host_permissions": [
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Binom Dashboard — язык и управление",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; object-src 'none'; style-src 'self'; img-src 'self' data:; connect-src https:; base-uri 'none'; form-action 'none'"
+  }
+}

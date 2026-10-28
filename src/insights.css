@@ -1,0 +1,50 @@
+/* Full-width traffic composition uses the selected dashboard palette. */
+.insights-root { margin: 22px 0 0; }
+.insight-scope { margin: 0 0 12px; color: var(--muted); font-size: 11px; }
+.insights-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+.insight-card { min-width: 0; background: var(--bg); border: 1px solid var(--line); border-radius: 13px; padding: 20px; overflow: hidden; }
+.insight-card-head { margin-bottom: 15px; }
+.insight-card h3 { margin: 0 0 4px; font-size: 16px; letter-spacing: -.25px; font-weight: 650; }
+.insight-card-head p { margin: 0; color: var(--muted); font-size: 11px; }
+.insight-empty { color: var(--muted); padding: 15px 0; font-size: 12px; line-height: 1.7; }
+.insight-error { color: #da7f78; }
+.light .insight-error { color: #a64a43; }
+.insight-note { margin: 16px 0 0; color: var(--muted); font-size: 10px; line-height: 1.6; }
+.insight-warnings { white-space: pre-line; color: #b78b3b; padding: 0 0 14px; font-size: 11px; }
+.positive { color: #70c69c; }
+.negative { color: #ec9299; }
+.light .positive { color: #187c57; }
+.light .negative { color: #bb4453; }
+.breakdown-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px; }
+.breakdown-tabs button { color: var(--muted); padding: 6px 12px; border-radius: 5px; background: var(--surface); }
+.breakdown-tabs [aria-pressed=true] { background: var(--brand-tint, var(--hover)); color: var(--blue); }
+.breakdown-distribution { display: grid; grid-template-columns: minmax(180px, 26%) minmax(0, 1fr); gap: 28px; align-items: center; }
+.breakdown-figure { min-width: 0; margin: 0; text-align: center; }
+.breakdown-ring { position: relative; width: min(100%, 240px); margin: 0 auto; }
+.breakdown-ring svg { display: block; width: 100%; height: auto; }
+.breakdown-total { position: absolute; inset: 27% 17%; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
+.breakdown-total strong { max-width: 100%; color: var(--heading, var(--text)); font-size: clamp(16px, 2.4vw, 28px); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.25; overflow-wrap: anywhere; }
+.breakdown-total span { margin-top: 5px; color: var(--muted); font-size: 10px; }
+.breakdown-figure figcaption { color: var(--muted); font-size: 11px; margin-top: 4px; }
+.breakdown-list { display: grid; gap: 15px; min-width: 0; }
+.breakdown-row { min-width: 0; }
+.breakdown-label { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11px; align-items: baseline; }
+.breakdown-name { flex: 1; min-width: 90px; overflow-wrap: anywhere; }
+.breakdown-name::before { display: inline-block; content: ''; width: 8px; height: 8px; border-radius: 2px; margin-right: 8px; background: var(--breakdown-color); }
+.breakdown-label b { font-weight: 550; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.breakdown-label small { color: var(--muted); font-size: 10px; white-space: nowrap; }
+.breakdown-bar { height: 7px; border-radius: 4px; background: var(--surface); margin-top: 7px; overflow: hidden; }
+.breakdown-bar i { display: block; height: 100%; background: var(--breakdown-color); border-radius: inherit; }
+@media (max-width: 1120px) { .insight-card { padding: 16px; } }
+@media (max-width: 680px) {
+  .breakdown-distribution { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .breakdown-ring { width: 200px; }
+  .breakdown-total strong { font-size: 24px; }
+}
+@media (max-width: 560px) {
+  .insight-card { padding: 14px; }
+  .breakdown-tabs { gap: 3px; }
+  .breakdown-tabs button { padding: 6px 8px; }
+  .breakdown-label { gap: 4px 8px; }
+  .breakdown-label small { flex-basis: 100%; padding-left: 16px; }
+}

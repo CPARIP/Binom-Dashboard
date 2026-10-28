@@ -1,0 +1,25 @@
+{
+  "name": "binom-dashboard",
+  "version": "0.6.13",
+  "private": true,
+  "type": "module",
+  "description": "Local-first dashboard extension for Binom v2",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.js",
+    "test:browser": "node tests/browser.mjs",
+    "test:extension": "node tests/extension.mjs",
+    "package": "node scripts/package.mjs",
+    "test:insights": "node tests/insights-interactions.mjs",
+    "docs:check": "node scripts/check-docs.mjs",
+    "check:push": "node scripts/check-push.mjs",
+    "test:package": "node tests/package.mjs"
+  },
+  "dependencies": {
+    "echarts": "6.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "playwright": "1.58.2"
+  }
+}

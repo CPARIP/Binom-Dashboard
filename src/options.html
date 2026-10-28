@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binom Dashboard — connection</title>
+  <link rel="stylesheet" href="select.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header class="brand"><img src="icons/48.png" alt="" width="32" height="32"><h1>Binom Dashboard</h1><span id="connection-state" class="badge">Not configured</span></header>
+    <div class="intro"><p data-i18n-ru="Подключите Binom v2: в верхнем меню появится страница Dashboard с общим обзором и сравнением кампаний.">Connect Binom v2 to add Dashboard to the top menu, with an overview and campaign comparison.</p></div>
+    <div class="layout">
+      <section class="card" aria-labelledby="connection-title">
+        <div class="card-heading"><h2 id="connection-title" data-i18n-ru="Подключение">Connection</h2></div>
+        <div id="configured-summary" class="configured-summary" hidden>
+          <div><span data-i18n-ru="Трекер">Tracker</span><strong id="configured-origin"></strong></div>
+          <div><span data-i18n-ru="Часовой пояс">Time zone</span><strong id="configured-timezone"></strong></div>
+          <p id="key-storage-summary" class="hint"></p>
+        </div>
+        <section id="unlock-panel" class="unlock-panel" aria-labelledby="unlock-title" hidden>
+          <h3 id="unlock-title" data-i18n-ru="Разблокировать сохранённый ключ">Unlock saved key</h3>
+          <p class="hint" data-i18n-ru="Введите пароль один раз на этот сеанс браузера. Ключ будет расшифрован локально, и расширение сможет загружать статистику.">Enter your password once for this browser session. The key is decrypted locally so the extension can load statistics.</p>
+          <form id="unlock-form" autocomplete="off">
+            <label for="unlock-password" data-i18n-ru="Пароль шифрования">Encryption password</label>
+            <input id="unlock-password" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" required>
+            <button id="unlock" class="primary" type="submit"><span data-i18n-ru="Разблокировать">Unlock</span><span aria-hidden="true">→</span></button>
+          </form>
+          <p class="hint" data-i18n-ru="Забыли пароль? Восстановить его нельзя. Удалите сохранённый ключ и подключите Binom заново с исходным API-ключом.">Forgot your password? It cannot be recovered. Delete the saved key and reconnect Binom with the original API key.</p>
+        </section>
+        <details id="connection-editor" open>
+          <summary id="connection-editor-title">Set up connection</summary>
+        <form id="connect-form" autocomplete="off">
+          <label for="tracker-url" data-i18n-ru="Адрес страницы кампаний">Campaigns page URL</label>
+          <input id="tracker-url" type="url" placeholder="https://tracker.example.com/index" required autocomplete="off" spellcheck="false">
+          <p class="hint" data-i18n-ru="Откройте Campaigns в Binom и скопируйте адрес из браузера. Нужен HTTPS.">Open Campaigns in Binom and copy the URL from your browser. HTTPS is required.</p>
+          <p class="hint" data-i18n-ru="Часовой пояс статистики загружается из Binom при подключении и разблокировке ключа.">The statistics time zone is fetched from Binom when you connect or unlock the key.</p>
+          <label for="api-key" data-i18n-ru="API-ключ пользователя Binom">Binom user API key</label>
+          <input id="api-key" type="password" required autocomplete="off" spellcheck="false" autocapitalize="off">
+          <p class="hint"><span data-i18n-ru="Создайте отдельного пользователя с правами ">Create a separate user with </span><strong>Read</strong><span data-i18n-ru=" на нужные кампании и метрики. Ключ доступен в Settings → User."> access to the campaigns and metrics you need. Find the key in Settings → User.</span></p>
+          <label for="storage-mode" data-i18n-ru="Хранение API-ключа">API key storage</label>
+          <select id="storage-mode"><option value="encrypted" selected data-i18n-ru="Сохранить зашифрованным на этом устройстве">Save encrypted on this device</option><option value="session" data-i18n-ru="Только на текущий сеанс браузера">Current browser session only</option></select>
+          <div id="vault-password-fields">
+            <label for="vault-password" data-i18n-ru="Придумайте пароль шифрования">Create an encryption password</label>
+            <input id="vault-password" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" required aria-describedby="vault-password-hint">
+            <p id="vault-password-hint" class="hint" data-i18n-ru="От 12 до 256 символов. Пароль нужен после перезапуска браузера или блокировки. Он не сохраняется расширением.">Use 12–256 characters. You will need this password after restarting the browser or locking the key. The extension does not save it.</p>
+            <label for="vault-password-confirm" data-i18n-ru="Повторите пароль">Repeat password</label>
+            <input id="vault-password-confirm" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" required>
+            <p class="hint vault-caution" data-i18n-ru="Сохраните пароль самостоятельно. Если забудете его, для повторного подключения понадобится исходный API-ключ из Binom.">Keep your password somewhere safe. If you forget it, you will need the original Binom API key to reconnect.</p>
+          </div>
+          <div class="session-note"><span class="dot"></span><span id="storage-note">Only the encrypted key is saved on this device. The decrypted key stays in memory for the current session.</span></div>
+          <button id="connect" class="primary" type="submit"><span id="connect-label">Connect Binom</span><span aria-hidden="true">→</span></button>
+        </form>
+        </details>
+        <p id="feedback" role="status" aria-live="polite"></p>
+        <div id="connected-actions" hidden><button id="open-dashboard" class="primary" type="button" data-i18n-ru="Открыть дашборд ↗">Open dashboard ↗</button><button id="lock-key" class="secondary" type="button" hidden>Lock key</button><span class="danger-actions"><button id="forget-saved-key" class="text-button danger" type="button" hidden data-i18n-ru="Удалить сохранённый ключ">Delete saved key</button><button id="disconnect" class="text-button danger" type="button" data-i18n-ru="Забыть подключение">Forget connection</button></span></div>
+      </section>
+      <!-- The same language choice as the toolbar menu.
+           The Binom design is the only design; there is no design choice. -->
+      <section id="interface-card" class="card" aria-labelledby="interface-title">
+        <div class="card-heading"><h2 id="interface-title" data-i18n-ru="Интерфейс">Interface</h2></div>
+        <div class="field">
+          <label id="ui-language-label" for="ui-language" data-i18n-ru="Язык">Language</label>
+          <select id="ui-language" aria-label="Language"><option value="en" lang="en">English</option><option value="ru" lang="ru">Русский</option></select>
+        </div>
+        <p class="hint" data-i18n-ru="Светлая и тёмная темы — через переключатель в Binom.">Switch between light and dark themes in Binom.</p>
+        <p id="ui-feedback" class="hint" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* Settings page in the Binom design of the Dashboard.
+   Without the tracker DOM, the browser's light/dark preference selects colors.
+   The palette repeats the local fallbacks of src/binom.css. */
+:root {
+  color-scheme: dark;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  --bg: #222731;
+  --surface: #292f3a;
+  --hover: #303744;
+  --line: #454b54;
+  --text: #c4cad1;
+  --heading: #eeeeee;
+  --muted: #929eaf;
+  --blue: #00a1e0;
+  --link: #3fb4ea;
+  --field: #393e4e;
+  --field-line: #535967;
+  --field-text: #c4cbd4;
+  --stroke: #68727f;
+  --positive: #b6dd7b;
+  --negative: #f88989;
+  --warning: #e5bd68;
+  --primary: #009bda;
+  --primary-hover: #008ac3;
+  background: var(--bg);
+  color: var(--text);
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #f5f7fa;
+    --hover: #edf4f9;
+    --line: #d7dde5;
+    --text: #354252;
+    --heading: #20242d;
+    --muted: #667385;
+    --link: #0077b6;
+    --field: #ffffff;
+    --field-line: #bdc5cf;
+    --field-text: #354252;
+    --stroke: #a8b2bf;
+    --positive: #4b8619;
+    --negative: #d44343;
+    --warning: #986814;
+  }
+}
+* { box-sizing: border-box; }
+/* Chrome gives extension pages `body { font-size: 75%; font-family: system-ui }`;
+   the body sets the Binom font itself. */
+body { margin: 0; min-height: 100vh; background: var(--bg); font: 13px/1.45 Arial, sans-serif; }
+/* One narrow column instead of a 960 px sheet. */
+main { width: min(680px, calc(100% - 32px)); margin: auto; padding: 24px 0 32px; }
+.brand { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.brand img { flex: none; border-radius: 4px; }
+.brand h1 { margin: 0; color: var(--heading); font-size: 18px; font-weight: 600; }
+p { color: var(--muted); line-height: 1.5; }
+.intro { margin: 12px 0 14px; }
+.intro p { margin: 0; font-size: 12px; }
+.layout { display: grid; gap: 12px; }
+.card { padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+.card-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 10px; }
+h2 { margin: 0; color: var(--heading); font-size: 14px; font-weight: 600; }
+h3 { margin: 0; color: var(--heading); font-size: 13px; font-weight: 600; }
+/* Connection state: a colored mark in the page header. */
+.badge { --state: var(--muted); display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 3px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); font-size: 11px; line-height: 1.4; white-space: nowrap; }
+.badge::before { width: 7px; height: 7px; border-radius: 50%; background: var(--state); content: ''; }
+.badge.ready { --state: var(--positive); border-color: var(--state); }
+.badge.locked { --state: var(--warning); border-color: var(--state); }
+label { display: block; margin: 14px 0 6px; color: var(--heading); font-size: 12px; font-weight: 600; }
+input, select { width: 100%; min-height: 32px; padding: 6px 10px; border: 1px solid var(--field-line); border-radius: 4px; background: var(--field); color: var(--field-text); font: inherit; font-size: 13px; }
+select { cursor: pointer; }
+input::placeholder { color: var(--muted); }
+input:hover, select:hover { border-color: var(--stroke); }
+input:focus, select:focus { border-color: var(--blue); outline: 2px solid var(--blue); outline-offset: 2px; }
+button:focus-visible, summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.hint { margin: 6px 0; font-size: 12px; line-height: 1.5; }
+.hint strong { color: var(--text); font-weight: 600; }
+.session-note { display: flex; gap: 8px; margin: 14px 0; padding: 9px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--muted); font-size: 12px; line-height: 1.5; }
+.dot { flex: none; width: 6px; height: 6px; margin-top: 6px; border-radius: 50%; background: var(--blue); }
+button { min-height: 32px; padding: 6px 14px; border: 1px solid transparent; border-radius: 4px; font: inherit; font-size: 12px; cursor: pointer; }
+button:disabled { cursor: wait; opacity: .65; }
+.primary { display: inline-flex; align-items: center; justify-content: center; gap: 12px; background: var(--primary); border-color: var(--primary); color: #ffffff; }
+.primary:hover:not(:disabled) { background: var(--primary-hover); border-color: var(--primary-hover); }
+.secondary { background: transparent; color: var(--text); border-color: var(--stroke); }
+.secondary:hover:not(:disabled) { background: var(--hover); border-color: var(--blue); }
+.text-button { padding: 6px; background: transparent; color: var(--link); }
+.text-button:hover:not(:disabled) { background: var(--hover); }
+/* Irreversible actions read as such. */
+.text-button.danger { color: var(--negative); }
+#connect { margin-top: 2px; }
+#connected-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+/* The two irreversible actions stay together at the right; when the column is
+   too narrow for all four, they move to the next line as a pair. */
+.danger-actions { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-left: auto; }
+#feedback { margin: 14px 0 0; white-space: pre-line; overflow-wrap: anywhere; font-size: 12px; }
+#feedback:empty { display: none; }
+#feedback.error { color: var(--negative); }
+#feedback.success { color: var(--positive); }
+/* The encrypted vault is configured explicitly; secrets are never filled in. */
+[hidden] { display: none !important; }
+#connection-editor > summary { padding: 3px 0; color: var(--link); cursor: pointer; font-size: 13px; line-height: 1.6; }
+#connection-editor[open] > summary { color: var(--muted); }
+#connection-editor:not([open]) { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); }
+.configured-summary { margin-bottom: 14px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+.configured-summary > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 3px 0; font-size: 12px; }
+.configured-summary > div > span { flex-shrink: 0; color: var(--muted); }
+.configured-summary strong { min-width: 0; color: var(--heading); font-weight: 400; text-align: right; overflow-wrap: anywhere; }
+.configured-summary .hint { margin-bottom: 0; }
+.unlock-panel { margin-bottom: 14px; padding: 12px 14px; border: 1px solid color-mix(in srgb, var(--warning) 45%, var(--line)); border-radius: 4px; background: var(--surface); }
+.unlock-panel label { margin-top: 12px; }
+#unlock { margin: 12px 0 6px; }
+#vault-password-fields { margin-top: 14px; padding: 0 12px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+#vault-password-fields label { margin-top: 12px; }
+.vault-caution { color: var(--warning); }
+/* Interface panel: the language choice. All selects on the page are styled
+   like the Dashboard's Binom menus (select.css, select.js). */
+#interface-card .field { max-width: 320px; }
+#interface-card label { margin-top: 0; }
+#interface-card .hint { margin: 8px 0 0; }
+#ui-feedback:empty { display: none; }
+#ui-feedback[data-error=true] { color: var(--negative); }
+.custom-select { display: block; width: 100%; }
+.select-trigger { width: 100%; max-width: none; min-height: 32px; border-radius: 4px; background: var(--field); border-color: var(--field-line); color: var(--field-text); font-size: 13px; }
+.select-trigger:hover { border-color: var(--stroke); background: var(--field); }
+.select-trigger[aria-expanded=true] { background: var(--field); border-color: var(--blue); box-shadow: none; }
+.select-chevron { color: var(--field-text); }
+.select-menu { padding: 4px 0; border-radius: 4px; background: var(--bg); border-color: var(--field-line); box-shadow: 0 4px 14px #0003; font-size: 13px; }
+.select-option { min-height: 30px; padding: 6px 12px; border-radius: 0; }
+@media (max-width: 600px) {
+  main { width: calc(100% - 24px); padding-top: 16px; }
+  .brand { flex-wrap: wrap; gap: 8px 10px; }
+  .brand h1 { font-size: 16px; }
+  .card { padding: 12px; }
+  .configured-summary > div { display: block; }
+  .configured-summary strong { display: block; margin-top: 2px; text-align: left; }
+  .unlock-panel { padding: 12px; }
+  #interface-card .field { max-width: none; }
+  #connected-actions { align-items: stretch; }
+  .danger-actions { margin-left: 0; }
+  .danger-actions .text-button:first-child { padding-left: 0; }
+}
